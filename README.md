@@ -50,7 +50,7 @@ The task is to implement functions on different Core JS topics. There are eight 
 
 ## Submit to [rs app](https://app.rs.school/)
 1. Open [rs app](https://app.rs.school/) and login
-2. Go to [submit task page](https://app.rs.school/course/submit-task?course=rs-2019-q3)
+2. Go to Auto-test
 3. Select your task (Core JS 101)
 4. Press submit button and enjoy
 
