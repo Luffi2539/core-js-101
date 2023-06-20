@@ -16,7 +16,7 @@ The task is to implement functions on different Core JS topics. There are eight 
 
 ## Prepare and test
 1. Install Node.js
-2. Fork this repository: https://github.com/mikhama/core-js-101/
+2. Fork this repository: https://github.com/Luffi2539/core-js-101/
 3. Clone your newly created repo: `https://github.com/<%your_github_username%>/core-js-101/`
 4. Go to folder `core-js-101`
 5. To install all dependencies use `npm install`
