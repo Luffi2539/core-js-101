@@ -851,7 +851,7 @@ describe('03-arrays-tasks', () => {
   });
 
 
-  it.optional('Functions from 04-array-test.js should not use basic loops statements', () => {
+  it.optional('Functions from 03-array-test.js should not use basic loops statements', () => {
     Object.getOwnPropertyNames(tasks)
       .filter((x) => tasks[x] instanceof Function)
       .forEach((f) => {
