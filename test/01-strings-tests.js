@@ -19,14 +19,14 @@ describe('01-strings-tasks', () => {
     assert.equal(tasks.getStringFromTemplate('Chuck', 'Norris'), 'Hello, Chuck Norris!');
   });
 
-  it.optional('getFirstChar should return the first char from given string', () => {
-    assert.equal(tasks.getFirstChar('John Doe'), 'J');
-    assert.equal(tasks.getFirstChar('cat'), 'c');
-  });
-
   it.optional('extractNameFromTemplate should parse the name from given string', () => {
     assert.equal(tasks.extractNameFromTemplate('Hello, John Doe!'), 'John Doe');
     assert.equal(tasks.extractNameFromTemplate('Hello, Chuck Norris!'), 'Chuck Norris');
+  });
+
+  it.optional('getFirstChar should return the first char from given string', () => {
+    assert.equal(tasks.getFirstChar('John Doe'), 'J');
+    assert.equal(tasks.getFirstChar('cat'), 'c');
   });
 
   it.optional('removeLeadingAndTrailingWhitespaces should remove leading and trailing whitespaces from the string', () => {
