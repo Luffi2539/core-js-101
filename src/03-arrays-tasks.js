@@ -308,11 +308,10 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  let count = 0;
-  arr.map((el) => {
-    if (typeof el === 'number' && el > 0) count += 1; return el;
-  });
-  return count;
+  return arr.reduce((prev, cur) => {
+    if (typeof cur === 'number' && cur > 0) return prev + 1;
+    return prev;
+  }, 0);
 }
 
 /**
@@ -535,8 +534,19 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  return array.reduce(
+    (prev, cur) => {
+      const country = keySelector(cur);
+      const city = valueSelector(cur);
+      if (prev.has(country)) {
+        const cityArr = prev.get(country);
+        cityArr.push(city);
+        prev.set(country, cityArr);
+      } else prev.set(country, new Array(city));
+      return prev;
+    }, new Map(),
+  );
 }
 
 
@@ -553,8 +563,8 @@ function group(/* array, keySelector, valueSelector */) {
  *   [[1, 2], [3, 4], [5, 6]], (x) => x     =>   [ 1, 2, 3, 4, 5, 6 ]
  *   ['one','two','three'], (x) => x.split('')  =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.flatMap((el) => childrenSelector(el));
 }
 
 
@@ -570,8 +580,8 @@ function selectMany(/* arr, childrenSelector */) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, indexes) {
+  return indexes.reduce((prev, cur) => prev[cur], arr);
 }
 
 
@@ -593,8 +603,14 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  if (arr.length % 2 !== 0) {
+    const b = arr.splice(0, arr.length / 2);
+    const c = arr.splice(0, arr.length / 2);
+    return arr.concat(c, b);
+  }
+  const b = arr.splice(0, arr.length / 2);
+  return arr.concat(b);
 }
 
 
