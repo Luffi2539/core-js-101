@@ -128,8 +128,16 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  // Check if one rectangle is to the left of the other
+  if (rect1.left + rect1.width < rect2.left
+   || rect2.left + rect2.width < rect1.left) return false;
+
+  // Check if one rectangle is above the other
+  if (rect1.top + rect1.height < rect2.top
+   || rect2.top + rect2.height < rect1.top) return false;
+
+  return true;
 }
 
 
@@ -159,8 +167,15 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const xDiff = point.x - circle.center.x;
+  const yDiff = point.y - circle.center.y;
+  const xDiff2 = xDiff * xDiff;
+  const yDiff2 = yDiff * yDiff;
+  const xyDiff = xDiff2 + yDiff2;
+  const radius2 = circle.radius * circle.radius;
+
+  return xyDiff < radius2;
 }
 
 
@@ -274,8 +289,25 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const str = ccn.toString();
+
+  let sum = 0;
+  let isEven = false;
+
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    let digit = Number(str[i]);
+
+    if (isEven) {
+      digit *= 2;
+      if (digit > 9) digit -= 9;
+    }
+
+    sum += digit;
+    isEven = !isEven;
+  }
+
+  return sum % 10 === 0;
 }
 
 /**
@@ -320,8 +352,30 @@ function getDigitalRoot(num) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  const OPEN_BRACKETS = ['[', '(', '{', '<'];
+  const BRACKETS_PAIR = {
+    ']': '[',
+    ')': '(',
+    '}': '{',
+    '>': '<',
+  };
+  const stack = [];
+
+  for (let i = 0; i < str.length; i += 1) {
+    const currentSymbol = str[i];
+    if (OPEN_BRACKETS.includes(currentSymbol)) stack.push(currentSymbol);
+    else {
+      if (stack.length === 0) return false;
+
+      const topElement = stack[stack.length - 1];
+
+      if (BRACKETS_PAIR[currentSymbol] === topElement) stack.pop();
+      else return false;
+    }
+  }
+
+  return stack.length === 0;
 }
 
 
