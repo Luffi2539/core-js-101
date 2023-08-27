@@ -129,11 +129,9 @@ function isTriangle(a, b, c) {
  *
  */
 function doRectanglesOverlap(rect1, rect2) {
-  // Check if one rectangle is to the left of the other
   if (rect1.left + rect1.width < rect2.left
    || rect2.left + rect2.width < rect1.left) return false;
 
-  // Check if one rectangle is above the other
   if (rect1.top + rect1.height < rect2.top
    || rect2.top + rect2.height < rect1.top) return false;
 
@@ -416,8 +414,21 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const dirs = pathes.map((path) => path.split('/'));
+  const common = [];
+
+  for (let i = 0; i < dirs[0].length; i += 1) {
+    const dir = dirs[0][i];
+    const check = dirs.every((path) => path[i] === dir);
+
+    if (check) common.push(dir);
+    else break;
+  }
+
+  let str = common.join('/');
+  if (common.length > 0) str = str.concat('/');
+  return str;
 }
 
 
@@ -439,8 +450,30 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const numRowsA = m1.length;
+  const numColsA = m1[0].length;
+  const numRowsB = m2.length;
+  const numColsB = m2[0].length;
+
+  // Ensure the matrices can be multiplied
+  if (numColsA !== numRowsB) {
+    throw new Error('Cannot multiply these matrices as the number of columns in the first matrix does not match the number of rows in the second matrix.');
+  }
+
+  // Initialize the product matrix with zeros
+  const productMatrix = new Array(numRowsA).fill(null).map(() => new Array(numColsB).fill(0));
+
+  // Perform the matrix multiplication
+  for (let i = 0; i < numRowsA; i += 1) {
+    for (let j = 0; j < numColsB; j += 1) {
+      for (let k = 0; k < numColsA; k += 1) {
+        productMatrix[i][j] += m1[i][k] * m2[k][j];
+      }
+    }
+  }
+
+  return productMatrix;
 }
 
 
